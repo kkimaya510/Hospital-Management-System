@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Login</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+  <div style="max-width:480px;margin:40px auto;padding:20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.08);font-family: 'Segoe UI', sans-serif;">
+    <h2>Doctor Login</h2>
+    <form th:action="@{/doctor/login}" method="post">
+      <label>Email:</label><br/>
+      <input type="email" name="email" required/><br/><br/>
+      <label>Password:</label><br/>
+      <input type="password" name="password" required/><br/><br/>
+      <button type="submit" style="background:#3F51B5;color:#fff;padding:8px 14px;border:none;border-radius:6px;">Login</button>
+    </form>
+    <p th:if="${error}" th:text="${error}" style="color:red;margin-top:10px;"></p>
+    <p style="margin-top:12px;"><a th:href="@{/}">Back to Home</a></p>
+  </div>
+</body>
+</html>

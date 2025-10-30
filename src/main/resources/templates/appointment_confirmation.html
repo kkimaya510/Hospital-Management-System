@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Appointment Confirmed</title></head>
+<body style="font-family:'Segoe UI', sans-serif;padding:20px;">
+  <h2>Appointment Saved</h2>
+  <p>Patient: <strong th:text="${patient.name}"></strong></p>
+  <p>Visit Reason: <span th:text="${patient.visitReason}"></span></p>
+  <p>Assigned Doctor: <strong th:text="${patient.assignedDoctorName != null ? patient.assignedDoctorName : 'Not Assigned'}"></strong></p>
+  <p>Appointment At: <span th:text="${formattedDateTime}"></span></p>
+  <p><a th:href="@{/patients}">Back to Patient List</a></p>
+</body>
+</html>

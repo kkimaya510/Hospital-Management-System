@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient List</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Attractive Header with Logo -->
+<header style="background-color: #4CAF50; padding: 15px; display: flex; align-items: center; justify-content: space-between; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); font-family: 'Segoe UI', sans-serif;">
+
+    <div style="display: flex; align-items: center;">
+        <img src="/images/logo1.png" alt="Logo" width="60" height="60" style="border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2); margin-right: 15px;">
+        <h1 style="color: white; margin: 0; font-size: 28px;">Patient Management System</h1>
+    </div>
+
+    <nav>
+        <a href="/" style="color: white; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 16px; padding: 8px 12px; border-radius: 5px; transition: background 0.3s;">Home</a>
+        <a href="/add" style="color: white; text-decoration: none; background-color: #FF5722; padding: 8px 15px; border-radius: 5px; font-weight: bold; font-size: 16px; transition: background 0.3s;">Book Appointment</a>
+        <!-- Doctor Login Button -->
+        <a th:href="@{/doctor/login}" style="color: white; text-decoration: none; background-color: #3F51B5; padding: 8px 15px; border-radius: 5px; font-weight: bold; font-size: 16px; transition: background 0.3s; margin-left: 10px;">Doctor Login</a>
+    </nav>
+
+</header>
+
+<main style="padding: 20px; font-family: 'Segoe UI', sans-serif;">
+
+    <h2 style="text-align: center; color: #333;">All Patients</h2>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
+        <thead style="background-color: #f2f2f2;">
+            <tr>
+                <th style="padding: 12px; border: 1px solid #ddd;">ID</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Name</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Age</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Gender</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Contact</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Visit Reason</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Appointment</th>
+                <th style="padding: 12px; border: 1px solid #ddd;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.id}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td th:text="${patient.name}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td th:text="${patient.age}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td th:text="${patient.gender}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td th:text="${patient.contact}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td th:text="${patient.visitReason}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td th:text="${#temporals.format(patient.appointmentDateTime, 'yyyy-MM-dd HH:mm')}" style="padding: 10px; border: 1px solid #ddd;"></td>
+                <td style="padding: 10px; border: 1px solid #ddd;">
+                    <a th:href="@{'/edit/' + ${patient.id}}" style="background-color: #2196F3; color: white; padding: 6px 12px; text-decoration: none; border-radius: 5px; margin-right: 5px;">Edit</a>
+                    <a th:href="@{'/delete/' + ${patient.id}}" style="background-color: #f44336; color: white; padding: 6px 12px; text-decoration: none; border-radius: 5px;" onclick="return confirm('Are you sure to delete this patient?');">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+</body>
+</html>

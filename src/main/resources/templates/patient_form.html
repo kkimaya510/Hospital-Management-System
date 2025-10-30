@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Form</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #34495e;
+            align-self: center;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="datetime-local"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4CAF50;
+            background: #ffffff;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 15px;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #45a049, #388e3c);
+            transform: translateY(-2px);
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #21618c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 30px 20px;
+            }
+
+            form {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2 th:text="${#strings.isEmpty(patient.id) ? 'Add New Patient' : 'Patient Details'}"></h2>
+
+    <form th:action="@{/save}" th:object="${patient}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required/>
+
+        <label>Age:</label>
+        <input type="number" th:field="*{age}" required min="0"/>
+
+        <label>Gender:</label>
+        <select th:field="*{gender}" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <label>Contact:</label>
+        <input type="text" th:field="*{contact}" required/>
+
+        <label>Address:</label>
+        <textarea th:field="*{address}" rows="3"></textarea>
+
+        <label>Visit Reason:</label>
+        <input type="text" th:field="*{visitReason}" required/>
+
+        <label>Medical History:</label>
+        <textarea th:field="*{medicalHistory}" rows="3"></textarea>
+
+        <label>Appointment Date & Time:</label>
+        <input type="datetime-local" th:field="*{appointmentDateTime}" required/>
+
+        <button type="submit">Save Patient</button>
+    </form>
+
+    <a href="/">Back to Home</a>
+</div>
+
+</body>
+</html>
